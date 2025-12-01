@@ -18,7 +18,7 @@ This project follows a structured **ETL workflow** inside Power BI:
 ## 🧹 **2. Data Cleaning & Preparation (Power Query)**
 
 ✅ **Dataset Used:**  
-- `https://www.data.gov.in/resource/real-time-air-quality-index-various-locations`
+- `[Real-Time Air Quality Index – DataGov](https://www.data.gov.in/resource/real-time-air-quality-index-various-locations)`
 
 ### 🔧 **Cleaning Steps**
 - Removed nulls & duplicate records  
