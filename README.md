@@ -238,23 +238,15 @@ Used for:
 - Coordinates: Latitude and Longitude
 - Timestamp: Last_Update
 
-9. Final Thoughts and Future Scope
-Key Highlights
+## 9. Final Thoughts and Future Scope
+### Key Highlights
+- End-to-end Power BI project
+- Clean Star Schema implementation
+- AQI-based insights with dynamic coloring
+- Professional, interactive dashboard
 
-End-to-end Power BI project
-
-Clean Star Schema implementation
-
-AQI-based insights with dynamic coloring
-
-Professional, interactive dashboard
-
-Future Enhancements
-
-Drill-through analysis pages
-
-Mobile-optimized dashboard layout
-
-Real-time API integration
-
-Advanced AQI trend and seasonality analysis
+### Future Enhancements
+- Drill-through analysis pages
+- Mobile-optimized dashboard layout
+- Real-time API integration
+- Advanced AQI trend and seasonality analysis
