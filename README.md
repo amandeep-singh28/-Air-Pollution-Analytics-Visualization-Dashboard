@@ -1,160 +1,260 @@
-# 🌍💨 Air Pollution Analytics and Visualization Dashboard
+# Air Pollution Analytics and Visualization Dashboard
 
-An interactive and insightful **Air Quality Intelligence Dashboard** built entirely using **Power Query and Power BI**, integrated with **AQI Classification Logic** to analyze environmental pollution across India.  
-Designed with a **clean white modern theme** to deliver insights with clarity and professionalism.
+An interactive and insight-driven **Air Quality Intelligence Dashboard** built using **Power Query and Power BI**, integrated with **AQI-based classification logic** to analyze air pollution patterns across India.
 
----
-
-## 🧩 **1. Project Workflow Overview**
-
-This project follows a structured **ETL workflow** inside Power BI:
-
-- **Power Query**: Data cleaning, preprocessing, transformation  
-- **Dim–Fact Modeling**: Created star schema for analytical reporting  
-- **Power BI Dashboard**: Built with AQI-driven color logic, KPIs, slicers, maps & charts  
+The project follows industry-standard **data modeling practices**, uses a **Star Schema architecture**, and applies **dynamic DAX-driven visual logic** to deliver clear, actionable insights.
 
 ---
 
-## 🧹 **2. Data Cleaning & Preparation (Power Query)**
+## 1. Project Workflow Overview
 
-✅ **Dataset Used:**  
-- [Real-Time Air Quality Index – DataGov](https://www.data.gov.in/resource/real-time-air-quality-index-various-locations)
+This project follows a structured **end-to-end Business Intelligence workflow** inside Power BI:
 
-### 🔧 **Cleaning Steps**
-- Removed nulls & duplicate records  
-- Standardized text fields using Trim, Clean, Format  
-- Converted `last_update` column to proper DateTime  
-- Created **AQI Category column** using pollutant threshold logic  
-- Split dataset into **three relational tables**:
+- **Power Query**
+  - Data cleaning
+  - Data transformation
+  - Table preparation
 
-| 🗃 **Table Name** | 🔍 **Description** |
-|------------------|---------------------|
-| **Fact Table** | Pollutant Min, Max, Avg, Location ID, Pollutant ID |
-| **Dim Location** | Country, State, City, Station, Latitude, Longitude |
-| **Dim Pollutant** | Pollutant ID, Pollutant Name |
+- **Star Schema Modeling**
+  - Dim–Fact architecture
+  - Surrogate key generation
+  - Relationship optimization
 
-✅ Structured using **primary & foreign keys** for clean BI modeling  
+- **DAX Measures**
+  - KPI calculations
+  - AQI categorization
+  - Conditional formatting logic
 
----
-
-## 🗄️ **3. Data Model & Relationship Testing**
-
-- Built a clean **Star Schema**  
-- Established **one-to-many (1:*)** relationships:  
-  - Dim Location → Fact Table  
-  - Dim Pollutant → Fact Table  
-- Ensured **single-direction filters** for performance  
-- No inactive / ambiguous relationships  
+- **Power BI Dashboard**
+  - Interactive KPIs
+  - Filters and slicers
+  - Geo-spatial and analytical visuals
 
 ---
 
-## 📊 **4. Power BI Dashboard**
+## 2. Data Cleaning and Preparation (Power Query)
 
-### 🎨 **Theme**
-- **Background:** Clean white canvas  
-- **Design Goal:** Minimalistic + AQI-based dynamic colors  
+### Dataset Used
 
----
+- **Real-Time Air Quality Index – DataGov India**  
+  https://www.data.gov.in/resource/real-time-air-quality-index-various-locations
 
-### 🔷 **Dashboard Elements**
+### Initial Main Table Structure
 
-## 🧮 **KPI Cards**
-- Total Stations  
-- Average Pollutant  
-- Min Pollutant  
-- Max Pollutant  
-
----
-
-## 🧭 **Gauge Chart – Overall AQI Index**
-- Min = 0  
-- Max = 300  
-- Target = 100  
-- Needle = `Avg Pollutant`  
-- Dynamic fill color using AQI Color measure  
-
----
-
-## 🗺️ **Geo-Spatial Map**
-- Plots cities using Latitude & Longitude  
-- Bubble colors based on AQI category  
-- Interactive zoom, panning, and tooltips  
-
----
-
-## 📈 **Charts & Visuals**
-- **Bar Chart:** Top 10 most polluted cities  
-- **Donut Chart:** Pollutant distribution  
-- **Clustered Column Chart:** Min vs Avg vs Max pollutant levels  
-- **Gauge Chart:** Real-time AQI indicator  
-
----
-
-## 🎛 **Filters & Slicers**
 - Country  
 - State  
 - City  
 - Station  
+- Last_Update  
+- Latitude  
+- Longitude  
+- Pollutant_ID  
+- Pollutant_Min  
+- Pollutant_Max  
+- Pollutant_Avg  
+
+### Data Cleaning Steps
+
+- Removed null and duplicate records  
+- Standardized text fields using Trim, Clean, and Format  
+- Converted `Last_Update` column to proper DateTime format  
+- Ensured numeric consistency for pollutant values  
+- Prepared dataset for dimensional modeling  
+
+---
+
+## 3. Star Schema Design
+
+A clean **Star Schema** was implemented to improve performance, scalability, and analytical efficiency.
+
+---
+
+### Fact Table
+
+**Columns**
+
+- Location ID  
+- Pollutant ID  
+- pollutant_min  
+- pollutant_max  
+- pollutant_avg  
+
+**Steps Performed**
+
+- Duplicated the main dataset  
+- Merged with Dim Location to obtain Location ID  
+- Merged with Dim Pollutant to obtain Pollutant ID  
+- Removed descriptive text columns  
+- Filtered out rows with null pollutant values  
+- Converted pollutant metrics to Whole Number  
+
+---
+
+### Dim Location
+
+**Columns**
+
+- Location ID  
+- Country  
+- State  
+- City  
+- Station  
+- Last_Update  
+- Latitude  
+- Longitude  
+
+**Steps Performed**
+
+- Duplicated the main dataset  
+- Removed all pollutant-related columns  
+- Created Location ID using Index Column  
+
+---
+
+### Dim Pollutant
+
+**Columns**
+
+- Pollutant ID  
 - Pollutant Name  
 
----
+**Steps Performed**
 
-## 🔘 **Buttons**
-- **Reset to Default** (Bookmark-driven filter reset)  
-
----
-
-## 🧠 **5. DAX Measures Implemented**
-
-### 🔷 Core Measures
-- `Avg Pollutant`  
-- `Min Pollutant`  
-- `Max Pollutant`  
-- `Total Stations`  
-- `Total Readings`  
-
-### 🔷 AQI Category Logic  
-(Good → Moderate → Unhealthy (Sensitive) → Unhealthy → Very Unhealthy → Hazardous)
-
-### 🔷 AQI Color Logic  
-Used for conditional formatting in:
-- Map  
-- Bar charts  
-- Gauge  
-- KPI cards  
+- Duplicated the main dataset  
+- Retained only Pollutant_ID  
+- Removed duplicate pollutant values  
+- Renamed Pollutant_ID to Pollutant Name  
+- Created Pollutant ID using Index Column  
 
 ---
 
-## 📁 **6. Dataset Overview**
+## 4. Data Model and Relationships
 
-The dataset contains:
-
-- **Pollutants:** PM2.5, PM10, NO2, SO2, CO, OZONE, NH3  
-- **Location:** Country, State, City, Station  
-- **Coordinates:** Latitude & Longitude  
-- **Metrics:** pollutant_min, pollutant_max, pollutant_avg  
-- **Timestamp:** last_update  
-
----
-
-## 📌 **7. Final Thoughts & Future Scope**
-
-✅ Fully interactive dashboard  
-✅ Clean Star Schema  
-✅ AQI-based insights  
-✅ Professional BI layout  
-
-### 🔮 Future Enhancements
-- Add drillthrough pages  
-- Add mobile layout  
-- Include ML-based AQI prediction  
-- API integration for real-time updates  
+- Implemented a **Star Schema architecture**
+- Relationships:
+  - Dim Location[Location ID] → Fact Table[Location ID] (1:*)
+  - Dim Pollutant[Pollutant ID] → Fact Table[Pollutant ID] (1:*)
+- Single-direction filtering applied
+- No circular or inactive relationships
+- Optimized model for analytical queries
 
 ---
 
-> 🙌 **Built with accuracy, environmental awareness, and BI excellence to visualize India’s air quality.**
+## 5. DAX Measures Implemented
 
----
+### Core Measures
 
-### 🔗 **Connect**
-Open to feedback, suggestions, and collaboration.
+```DAX
+Total Stations =
+DISTINCTCOUNT ( 'Dim Location'[Station] )
+
+Avg Pollutant =
+AVERAGE ( 'Fact Table'[pollutant_avg] )
+
+Min Pollutant =
+MIN ( 'Fact Table'[pollutant_min] )
+
+Max Pollutant =
+MAX ( 'Fact Table'[pollutant_max] )
+
+Total Readings =
+COUNTROWS ( 'Fact Table' )
+```
+
+```Gauge Chart Measures
+Minimum Value = 0
+Maximum Value = 300
+Target Value = 100
+```
+
+```AQI Category
+AQI Category =
+SWITCH(
+    TRUE(),
+    [Avg Pollutant] <= 50, "Good",
+    [Avg Pollutant] <= 100, "Moderate",
+    [Avg Pollutant] <= 150, "Unhealthy (Sensitive)",
+    [Avg Pollutant] <= 200, "Unhealthy",
+    [Avg Pollutant] <= 300, "Very Unhealthy",
+    "Hazardous"
+)
+```
+
+```AQI Color (Conditional Formatting)
+AQI Color =
+SWITCH(
+    TRUE(),
+    [Avg Pollutant] <= 50, "#00A65A",
+    [Avg Pollutant] <= 100, "#F39C12",
+    [Avg Pollutant] <= 150, "#FF851B",
+    [Avg Pollutant] <= 200, "#DD4B39",
+    [Avg Pollutant] <= 300, "#8E24AA",
+    "#4A148C"
+)
+```
+
+Used for:
+- KPI Cards
+- Gauge Chart
+- Bar and Column Charts
+- Geo-spatial Maps
+
+## 6. Power BI Dashboard
+
+### KPI Cards
+- Total Stations
+- Average Pollutant
+- Minimum Pollutant
+- Maximum Pollutant
+
+### Gauge Chart – Overall AQI
+- Dynamic value using Avg Pollutant
+- Threshold-based coloring using AQI Color
+- Min, Max, and Target controlled via DAX
+
+### Geo-Spatial Visualization
+- Shape Map (India – State level)
+- State-wise average pollutant concentration
+- Fully interactive with slicers
+
+### Charts and Visuals
+- Bar Chart: Top 10 most polluted cities
+- Donut Chart: Pollutant distribution
+- Clustered Column Chart: Min vs Avg vs Max pollutant levels
+- Funnel Chart: Top pollutants by average concentration
+
+## 7. Filters and Interactivity
+- Pollutant Name
+- State
+
+### Reset to Default
+- Bookmark-driven reset button
+- Instantly clears all slicers
+
+## 8. Dataset Overview
+- Pollutants: PM2.5, PM10, NO2, SO2, CO, OZONE, NH3
+- Locations: Country, State, City, Station
+- Metrics: pollutant_min, pollutant_max, pollutant_avg
+- Coordinates: Latitude and Longitude
+- Timestamp: Last_Update
+
+9. Final Thoughts and Future Scope
+Key Highlights
+
+End-to-end Power BI project
+
+Clean Star Schema implementation
+
+AQI-based insights with dynamic coloring
+
+Professional, interactive dashboard
+
+Future Enhancements
+
+Drill-through analysis pages
+
+Mobile-optimized dashboard layout
+
+Real-time API integration
+
+Advanced AQI trend and seasonality analysis
